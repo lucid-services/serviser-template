@@ -1,0 +1,19 @@
+{
+    "doc": "bi-service-doc",
+    "cli": "bi-service-cli",
+    "sdk": "bi-service-sdk",
+    "sdk-cache": "bi-service-sdk-cache",
+    "sdk-oauth": "bi-service-sdk-oauth",
+    "couchbase": "bi-service-couchbase",
+    "sequelize": "bi-service-sequelize",
+    "migrations": "bi-db-migrations",
+    "mocha": "mocha",
+    "chai": "chai",
+    "chai-as-promised": "chai-as-promised",
+    "istanbul": "istanbul",
+    "sinon": "sinon",
+    "sinon-as-promised": "sinon-as-promised",
+    "sinon-chai": "sinon-chai",
+    "tmp": "tmp",
+    "supertest": "supertest"
+}

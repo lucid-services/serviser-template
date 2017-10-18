@@ -1,0 +1,52 @@
+{
+  "name": "bi-service-template",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "bi-service-template": "./bin/bi-service-template.js"
+  },
+  "testFramework": "mocha",
+  "author": "Bohemia Interactive",
+  "contributors": [
+    "fogine <TODO>"
+  ],
+  "private": false,
+  "engines": {
+    "node": ">=6.4.0"
+  },
+  "license": "GPL-3.0",
+  "files": [
+    "index.js",
+    "bin",
+    "lib",
+    "LICENCE",
+    "README.md",
+    "COPYRIGHT",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 'test/**/*.js'",
+    "tests": "mocha --ui bdd --colors --check-leaks -t 5000 --reporter spec 'test/**/*.js'",
+    "test": "npm run tests"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "inquirer": "^3.3.0",
+    "inquirer-autocomplete-prompt": "^0.11.1",
+    "json5": "0.5.0",
+    "lodash": "^4.16.2",
+    "mustache": "^2.3.0",
+    "yargs": "^8.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "istanbul": "^0.4.3",
+    "mocha": "^3.5.3",
+    "sinon": "^1.17.3",
+    "sinon-as-promised": "^4.0.0",
+    "sinon-chai": "^2.8.0",
+    "tmp": "0.0.33"
+  }
+}
