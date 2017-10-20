@@ -2,12 +2,13 @@
 
 const path             = require('path');
 const config           = require('bi-config');
+const Service          = require('bi-service');
 const CouchbaseCluster = require('bi-service-couchbase');
 
 const cluster = module.exports = CouchbaseCluster.build(config.get('storage:couchbase'));
 
 module.exports.ODM = new CouchbaseCluster.CouchbaseODM({
-    bucket: cluster.openBucketSync('main')
+    bucket: cluster.openBucketSync('default')
 });
 
 
