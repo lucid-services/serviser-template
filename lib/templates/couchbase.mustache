@@ -1,0 +1,22 @@
+'use strict';
+
+const path             = require('path');
+const config           = require('bi-config');
+const CouchbaseCluster = require('bi-service-couchbase');
+
+const cluster = module.exports = CouchbaseCluster.build(config.get('storage:couchbase'));
+
+module.exports.ODM = new CouchbaseCluster.CouchbaseODM({
+    bucket: cluster.openBucketSync('main')
+});
+
+
+//Load models
+Service.moduleLoader.fileIterator([
+    path.resolve(__dirname + '/../models/odm')
+], {
+    except: []
+}, function(file, dir) {
+    var pth = path.join(dir, file);
+    require(pth).apply(global, args);
+});

@@ -1,0 +1,18 @@
+'use strict';
+const moduleLoader = require('bi-service').moduleLoader;
+const service      = require('../index.js');
+
+{{#_apps}}
+service.buildApp('{{{.}}}', {
+    validator: {schemas: {}}
+});
+
+{{/_apps}}
+
+exports.appManager = service.appManager;
+
+moduleLoader.loadModules([
+    __dirname + '/routes/v1.0/'
+], {
+    except: []
+});

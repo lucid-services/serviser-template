@@ -1,0 +1,42 @@
+{
+    exitOnInitError: true,
+    listen: {{{listen}}},
+    apps: {{{apps}}},
+    response: {
+        //global req response headers
+        headers: [
+            ["Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE, CONNECT"],
+        ]
+    },
+
+    {{#sequelize}}
+    sequelize: {{{sequelize}}},
+    {{/sequelize}}
+    bodyParser: {
+        json: {
+            extended: false,
+            type: 'application/json',
+            limit: "2mb"
+        }
+    },
+    storage: {{{storage}}},
+    logs: {
+        // whether a process will exit with status code 1 on 'uncaughtException' event
+        exitOnError: false,
+        transports: [
+            {
+                type: 'file',
+                level: 'info', // maximum log level of this sepecific transport, [optional]
+                json: false,
+                priority: 0,
+                dir: 'logs', // can be absolute or relative to the node's process
+                autocreate: true // whether the `dir` should be created if it does not exist
+            },
+            {
+                type: 'console',
+                level: 'info',
+                priority: 1
+            }
+        ]
+    }
+}

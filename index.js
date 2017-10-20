@@ -1,7 +1,6 @@
 const Template = require('./lib/template.js');
-const plugins  = require('./lib/plugins.json');
 
-module.exports           = cliInterface;
+module.exports          = cliInterface;
 module.exports.Template = Template;
 
 let template = module.exports.template = new Template();

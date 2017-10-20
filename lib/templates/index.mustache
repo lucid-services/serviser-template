@@ -1,0 +1,76 @@
+'use strict';
+Object.defineProperty(global, 'Promise', {
+    configurable: false,
+    writable: false,
+    value: require('bluebird')
+});
+
+const config  = require('bi-config');
+const Service = require('bi-service').Service;
+
+{{#_config.sequelize}}
+const sequelize = require('./lib/database/sequelize.js');
+{{/_config.sequelize}}
+{{#_config.storage.couchbase}}
+const couchbase = require('./lib/database/couchbase.js');
+{{/_config.storage.couchbase}}
+
+const service = module.exports = new Service(config);
+
+service.on('set-up', function() {
+    require('./lib/app.js');
+});
+
+{{#_config.sequelize}}
+service.sqlModelManager = sequelize.modelManager;
+{{/_config.sequelize}}
+{{#_config.storage.couchbase}}
+service.cbModelManager = couchbase.ODM.modelManager;
+{{/_config.storage.couchbase}}
+
+{{#_package.dependencies.bi-service-sdk}}
+const sdkErrors = {
+    400: Service.error.RequestError,
+    401: Service.error.UnauthorizedError,
+    404: Service.error.ServiceError,
+    500: Service.error.ServiceError
+};
+{{/_package.dependencies.bi-service-sdk}}
+
+/**
+ * service resources eg. storage connections, remote service SDKs
+ * each registered resource have to implement `inspectIntegrity` method
+ */
+const resourceMgr = service.resourceManager;
+{{#_package.dependencies.bi-service-sdk}}
+/**
+ * connect to and talk with other bi-service based services
+ */
+const remoteServiceMgr = service.getRemoteServiceManager();
+{{/_package.dependencies.bi-service-sdk}}
+
+{{#_config.sequelize}}
+resourceMgr.register('{{{_config.sequelize.dialect}}}', sequelize);
+{{/_config.sequelize}}
+{{#_config.storage.couchbase}}
+resourceMgr.register('couchbase', couchbase);
+{{/_config.storage.couchbase}}
+
+{{#_package.dependencies.bi-service-sdk}}
+//Instantiates and registers a BIServiceSDK
+//requires relavant npm SDK package to be installed
+//remoteServiceMgr.buildRemoteService('<service>:<app>:<api_version>', {
+    //errors: sdkErrors,
+    //axios options supported
+//});
+{{/_package.dependencies.bi-service-sdk}}
+
+// bi-service plugins
+{{#_package.dependencies.bi-service-cli}}
+//Service monitoring/inspection
+require('bi-service-cli');
+{{/_package.dependencies.bi-service-cli}}
+{{#_package.dependencies.bi-service-doc}}
+//Autogeneration of Service API documentation
+require('bi-service-doc');
+{{/_package.dependencies.bi-service-doc}}
