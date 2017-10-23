@@ -109,6 +109,10 @@ describe('bin/bi-service-template', function() {
             }
         });
 
+        proc.stderr.on('data', function(chunk) {
+            console.error(chunk.toString());
+        });
+
         proc.on('close', function(code) {
             return done(new Error(`Service process exited unexpectedly with status code: ${code}`));
         });

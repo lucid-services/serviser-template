@@ -12,6 +12,11 @@ function cliInterface(yargs, strict) {
     return yargs
     .usage('$0 <command> [options]')
     .command(['init'], 'Initializes a new bi-service project', {
+        npm: {
+            describe: 'Whether to run npm install after a project is generated',
+            type: 'boolean',
+            default: true
+        }
     }, template.initCmd.bind(template))
     .option('verbose', {
         alias: 'v',

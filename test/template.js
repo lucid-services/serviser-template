@@ -35,18 +35,15 @@ describe('Template', function() {
         this.template = new Template({cwd: this.tmpDir.name});
 
         this.getAnswersStub = sinon.stub(Template.prototype, '_getAnswers');
-        this.npmInstallStub = sinon.stub(Template, '_npmInstall');
     });
 
     afterEach(function() {
         this.getAnswersStub.restore();
-        this.npmInstallStub.restore();
     });
 
     it('should generate bi-service project files', function() {
         let self = this;
         this.getAnswersStub.resolves(_.cloneDeep(userInput));
-        this.npmInstallStub.resolves();
 
         let files = [
             '/package.json',
@@ -61,7 +58,10 @@ describe('Template', function() {
             '/test/test.js'
         ];
 
-        return this.template.initCmd({verbose: 0}).bind(this).then(function() {
+        return this.template.initCmd({
+            verbose: 0,
+            npm: false
+        }).bind(this).then(function() {
             return Promise.map(files, function(p) {
                 return fs.statAsync(path.resolve(self.template.options.cwd + p))
                     .then(function(stat) {
@@ -76,9 +76,11 @@ describe('Template', function() {
         let _userInput = _.cloneDeep(userInput);
         _userInput.license = "MIT License";
         this.getAnswersStub.resolves(_userInput);
-        this.npmInstallStub.resolves();
 
-        return this.template.initCmd({verbose: 0}).bind(this).then(function() {
+        return this.template.initCmd({
+            verbose: 0,
+            npm: false
+        }).bind(this).then(function() {
             return fs.readFileAsync(path.resolve(self.template.options.cwd + '/LICENSE'))
                 .then(function(data) {
                     let mitLicense = fs.readFileSync(
