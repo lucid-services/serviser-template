@@ -26,5 +26,6 @@ function cliInterface(yargs, strict) {
         global: true,
         type: 'boolean'
     })
+    .example('$0 init --no-npm', '# Generate project skeleton and skip installation of npm dependencies')
     .strict(typeof strict === 'boolean' ? strict : true);
 }
