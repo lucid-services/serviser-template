@@ -91,4 +91,63 @@ describe('Template', function() {
                 });
         });
     });
+
+    it('should generate lib/database/couchbase.js connector module', function() {
+        let self = this;
+        let _userInput = _.cloneDeep(userInput);
+        _userInput._dependencies.push('bi-service-couchbase');
+        _userInput._config = {
+            storage: {
+                couchbase: {
+                    host: 'couchbase://127.0.0.1',
+                    buckets: {
+                        default: {bucket: 'default'}
+                    }
+                }
+            }
+        };
+
+        this.getAnswersStub.resolves(_userInput);
+
+        return this.template.initCmd({
+            verbose: 0,
+            npm: false
+        }).bind(this).then(function() {
+            let p = path.resolve(
+                self.template.options.cwd + '/lib/database/couchbase.js'
+            );
+
+            return fs.statAsync(p)
+                .then(function(stat) {
+                    stat.isFile().should.be.equal(true);
+                });
+        });
+    });
+
+    it('should generate lib/database/sequelize.js connector module', function() {
+        let self = this;
+        let _userInput = _.cloneDeep(userInput);
+        _userInput._dependencies.push('bi-service-sequelize');
+        _userInput._config = {
+            _sqlProvider: 'postgres',
+            _sqlDatabase: 'test',
+            _sqlUsername: '',
+            _sqlPassword: ''
+        };
+        this.getAnswersStub.resolves(_userInput);
+
+        return this.template.initCmd({
+            verbose: 0,
+            npm: false
+        }).bind(this).then(function() {
+            let p = path.resolve(
+                self.template.options.cwd + '/lib/database/sequelize.js'
+            );
+
+            return fs.statAsync(p)
+                .then(function(stat) {
+                    stat.isFile().should.be.equal(true);
+                });
+        });
+    });
 });

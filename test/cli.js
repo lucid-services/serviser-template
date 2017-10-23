@@ -35,7 +35,7 @@ describe('yargs cli interface', function() {
 });
 
 describe('bin/bi-service-template', function() {
-    before(function(done) {
+    before('Generating bi-service skeleton', function(done) {
         this.slow(30000);
 
         let self = this;
@@ -66,6 +66,7 @@ describe('bin/bi-service-template', function() {
         proc.stdout.on('data', function(chunk) {
             //when quetion prompt is activated, accept default value
             let questionCandidate = chunk.toString();
+            process.stdout.write('      ' + questionCandidate);
             for (let i = 0, len = self.questions.length; i < len; i++) {
                 if (   (self.questions[i] instanceof RegExp
                     && questionCandidate.match(self.questions[i]))
@@ -105,7 +106,10 @@ describe('bin/bi-service-template', function() {
 
         proc.stdout.on('data', function(chunk) {
             if (chunk.toString().indexOf('cli app listening on port') !== -1) {
-                checkServiceIntegrity(cliPort, done);
+                checkServiceIntegrity(cliPort, function(err) {
+                    proc.kill();
+                    done(err);
+                });
             }
         });
 
