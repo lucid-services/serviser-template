@@ -1,0 +1,60 @@
+{
+    "scripts": {
+        "start": "./node_modules/.bin/bi-service run",
+        "test": "mocha --ui bdd --colors --check-leaks -t 5000 --reporter spec 'test/**/*.js'"
+    },
+    "private": true,
+    "main": "index.js",
+    "files": [
+        "CHANGELOG.md",
+        "README.md",
+        "LICENSE",
+        "index.js",
+        "lib",
+        "bin"
+    ],
+    "engines": {
+        "node": ">=6.8.1"
+    },
+    "contributors": [],
+    "dependencies": {},
+    "devDependencies": {},
+    "peerDependencies": {},
+    "name": "testapp",
+    "version": "1.0.0",
+    "description": "",
+    "author": "",
+    "keywords": [
+        ""
+    ],
+    "license": "None",
+    "_dependencies": [
+        "bi-service-doc",
+        "bi-service-cli",
+        "bi-service-sdk",
+        "mocha",
+        "chai"
+    ],
+    "_config": {
+        "listen": {
+            "public": {
+                "type": "public",
+                "port": "3908"
+            },
+            "cli": {
+                "type": "private",
+                "port": "3352"
+            },
+            "public-doc": {
+                "type": "public",
+                "port": "3383"
+            }
+        },
+        "_apps": [
+            "public",
+            "public-doc",
+            "cli"
+        ],
+        "_host": "http://127.0.0.1"
+    }
+}
