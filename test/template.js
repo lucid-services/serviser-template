@@ -55,7 +55,7 @@ describe('Template', function() {
             '/lib/app.js',
             '/.gitignore',
             '/.npmignore',
-            '/test/test.js'
+            '/test/index.js'
         ];
 
         return this.template.initCmd({

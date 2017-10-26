@@ -1,11 +1,20 @@
+const config = require('bi-config');
+config.initialize();
+
+const service = require('../index.js');
+
+before(function() {
+    this.service = service;
+    return this.service.listen();
+});
+
+after(function() {
+    return this.service.close();
+});
 
 describe('', function() {
 
-    before(function() {
-        //
-    });
-
-    it('should ', function() {
+    it('should TODO', function() {
         //
     });
 });

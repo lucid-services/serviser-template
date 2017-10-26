@@ -107,6 +107,7 @@ describe('bin/bi-service-template', function() {
         proc.stdout.on('data', function(chunk) {
             if (chunk.toString().indexOf('cli app listening on port') !== -1) {
                 checkServiceIntegrity(cliPort, function(err) {
+                    proc.removeAllListeners('close');
                     proc.kill();
                     done(err);
                 });
