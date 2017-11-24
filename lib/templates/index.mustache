@@ -66,6 +66,10 @@ resourceMgr.register('couchbase', couchbase);
 {{/_package.dependencies.bi-service-sdk}}
 
 // bi-service plugins
+{{#_package.dependencies.bi-service-shell}}
+//User-defined shell commands
+require('bi-service-shell');
+{{/_package.dependencies.bi-service-shell}}
 {{#_package.dependencies.bi-service-cli}}
 //Service monitoring/inspection
 require('bi-service-cli');

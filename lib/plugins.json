@@ -1,6 +1,7 @@
 {
     "bi-service-doc"       : {"default" : true},
     "bi-service-cli"       : {"default" : true},
+    "bi-service-shell"     : {"default" : false},
     "bi-service-sdk"       : {"default" : true},
     "bi-service-sdk-cache" : {"default" : false},
     "bi-service-sdk-oauth" : {"default" : false},
