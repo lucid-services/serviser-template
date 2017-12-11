@@ -1,4 +1,4 @@
-## FUTURE
+## 0.2.0
 
 * [ADDED] - `bi-service-shell` plugin support
 * [ADDED] - npm test initialization before/after hooks
