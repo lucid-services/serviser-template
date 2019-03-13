@@ -1,7 +1,0 @@
-'use strict';
-const sequelizeBuilder = require('bi-service-sequelize');
-const config           = require('bi-config');
-const _                = require('lodash');
-
-const options = _.cloneDeep(config.get('sequelize'));
-module.exports =  sequelizeBuilder(options);

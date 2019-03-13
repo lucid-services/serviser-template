@@ -1,19 +1,19 @@
 {
-  "name": "bi-service-template",
+  "name": "serviser-template",
   "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "bi-service-template": "./bin/bi-service-template.js"
+    "serviser-template": "./bin/serviser-template.js"
   },
   "testFramework": "mocha",
-  "author": "Bohemia Interactive",
+  "author": "fogine",
   "contributors": [
-    "fogine <TODO>"
+    "fogine"
   ],
   "private": false,
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=8.0.0"
   },
   "license": "GPL-3.0",
   "files": [
@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 30000 'test/**/*.js'",
-    "tests": "mocha --ui bdd --colors --check-leaks -t 30000 --reporter spec 'test/**/*.js'",
+    "tests": "mocha --ui bdd --colors -t 30000 --reporter spec 'test/**/*.js'",
     "test": "npm run tests"
   },
   "dependencies": {

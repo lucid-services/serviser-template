@@ -34,8 +34,8 @@ describe('yargs cli interface', function() {
     });
 });
 
-describe('bin/bi-service-template', function() {
-    before('Generating bi-service skeleton', function(done) {
+describe('bin/serviser-template', function() {
+    before('Generating serviser skeleton', function(done) {
         this.slow(30000);
 
         let self = this;
@@ -59,7 +59,7 @@ describe('bin/bi-service-template', function() {
         ];
 
         let proc = childProcess.spawn('node', [
-            path.resolve(__dirname + '/../bin/bi-service-template.js'),
+            path.resolve(__dirname + '/../bin/serviser-template.js'),
             'init'
         ], {cwd: this.tmpDir.name});
 
@@ -95,9 +95,9 @@ describe('bin/bi-service-template', function() {
         });
     });
 
-    it('should generate runnable bi-service project skeleton with default option values', function(done) {
-        let config = require(path.resolve(this.tmpDir.name + '/config/development/config.json5'));
-        let cliPort = config.listen.cli.port;
+    it('should generate runnable serviser project skeleton with default option values', function(done) {
+        let config = require(path.resolve(this.tmpDir.name + '/config/config.js'));
+        let cliPort = config.apps.cli.listen;
         let proc = childProcess.spawn('npm', ['start'], {cwd: this.tmpDir.name});
 
         proc.on('error', function(e) {

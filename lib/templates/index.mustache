@@ -5,8 +5,8 @@ Object.defineProperty(global, 'Promise', {
     value: require('bluebird')
 });
 
-const config  = require('bi-config');
-const Service = require('bi-service').Service;
+const config  = require('serviser-config');
+const Service = require('serviser').Service;
 
 {{#_config.sequelize}}
 const sequelize = require('./lib/database/sequelize.js');
@@ -21,33 +21,11 @@ service.on('set-up', function() {
     require('./lib/app.js');
 });
 
-{{#_config.sequelize}}
-service.sqlModelManager = sequelize.modelManager;
-{{/_config.sequelize}}
-{{#_config.storage.couchbase}}
-service.cbModelManager = couchbase.ODM.modelManager;
-{{/_config.storage.couchbase}}
-
-{{#_package.dependencies.bi-service-sdk}}
-const sdkErrors = {
-    400: Service.error.RequestError,
-    401: Service.error.UnauthorizedError,
-    404: Service.error.ServiceError,
-    500: Service.error.ServiceError
-};
-{{/_package.dependencies.bi-service-sdk}}
-
 /**
  * service resources eg. storage connections, remote service SDKs
  * each registered resource have to implement `inspectIntegrity` method
  */
 const resourceMgr = service.resourceManager;
-{{#_package.dependencies.bi-service-sdk}}
-/**
- * connect to and talk with other bi-service based services
- */
-const remoteServiceMgr = service.getRemoteServiceManager();
-{{/_package.dependencies.bi-service-sdk}}
 
 {{#_config.sequelize}}
 resourceMgr.register('{{{_config.sequelize.dialect}}}', sequelize);
@@ -56,25 +34,24 @@ resourceMgr.register('{{{_config.sequelize.dialect}}}', sequelize);
 resourceMgr.register('couchbase', couchbase);
 {{/_config.storage.couchbase}}
 
-{{#_package.dependencies.bi-service-sdk}}
-//Instantiates and registers a BIServiceSDK
-//requires relavant npm SDK package to be installed
-//remoteServiceMgr.buildRemoteService('<service>:<app>:<api_version>', {
-    //errors: sdkErrors,
-    //axios options supported
-//});
-{{/_package.dependencies.bi-service-sdk}}
-
-// bi-service plugins
-{{#_package.dependencies.bi-service-shell}}
+// serviser plugins
+{{#_package.dependencies.serviser-shell}}
 //User-defined shell commands
-require('bi-service-shell');
-{{/_package.dependencies.bi-service-shell}}
-{{#_package.dependencies.bi-service-cli}}
+require('serviser-shell');
+{{/_package.dependencies.serviser-shell}}
+{{#_package.dependencies.serviser-cli}}
 //Service monitoring/inspection
-require('bi-service-cli');
-{{/_package.dependencies.bi-service-cli}}
-{{#_package.dependencies.bi-service-doc}}
+require('serviser-cli');
+{{/_package.dependencies.serviser-cli}}
+{{#_package.dependencies.serviser-doc}}
 //Autogeneration of Service API documentation
-require('bi-service-doc');
-{{/_package.dependencies.bi-service-doc}}
+require('serviser-doc');
+{{/_package.dependencies.serviser-doc}}
+{{#_package.dependencies.serviser-restfulness}}
+//Instant API features
+require('serviser-restfulness');
+{{/_package.dependencies.serviser-restfulness}}
+{{#_package.dependencies.serviser-restfulness-seeder}}
+//provides ./node_modules/.bin/serviser seed shell command
+require('serviser-restfulness-seeder');
+{{/_package.dependencies.serviser-restfulness-seeder}}
