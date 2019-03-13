@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/lucid-services/serviser-template.svg?branch=master)](https://travis-ci.org/lucid-services/serviser-template)  
 
-![Preview](https://github.com/lucid-services/serviser-template/raw/master/screencast.gif)
-
 Rapid start of a new [serviser](https://github.com/lucid-services/serviser) based project.  
 
 ##### CLI interface
