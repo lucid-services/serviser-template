@@ -1,9 +1,9 @@
 'use strict';
 
 const path             = require('path');
-const config           = require('bi-config');
-const Service          = require('bi-service');
-const CouchbaseCluster = require('bi-service-couchbase');
+const config           = require('serviser-config');
+const Service          = require('serviser');
+const CouchbaseCluster = require('serviser-couchbase');
 
 const cluster = module.exports = CouchbaseCluster.build(config.get('storage:couchbase'));
 
@@ -19,5 +19,5 @@ Service.moduleLoader.fileIterator([
     except: []
 }, function(file, dir) {
     var pth = path.join(dir, file);
-    require(pth).apply(global, args);
+    require(pth);
 });

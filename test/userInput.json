@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "./node_modules/.bin/bi-service run",
+        "start": "./node_modules/.bin/serviser run",
         "test": "mocha --ui bdd --colors --check-leaks -t 5000 --reporter spec 'test/**/*.js'"
     },
     "private": true,
@@ -29,9 +29,9 @@
     ],
     "license": "None",
     "_dependencies": [
-        "bi-service-doc",
-        "bi-service-cli",
-        "bi-service-sdk",
+        "serviser-doc",
+        "serviser-cli",
+        "serviser-sdk",
         "mocha",
         "chai"
     ],

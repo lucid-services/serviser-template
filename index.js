@@ -11,7 +11,7 @@ function cliInterface(yargs, strict) {
 
     return yargs
     .usage('$0 <command> [options]')
-    .command(['init'], 'Initializes a new bi-service project', {
+    .command(['init'], 'Initializes a new serviser project', {
         npm: {
             describe: 'Whether to run npm install after a project is generated',
             type: 'boolean',
